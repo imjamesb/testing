@@ -1,4 +1,4 @@
-# TypeScript Package Starter
+# TypeScript Package Starter test
 
 This is a quick template to get started developing on typescript projects on
 Node.js
