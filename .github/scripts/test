@@ -9,6 +9,7 @@ process.stdin.on("data", (data) => {
 await new Promise((resolve) => process.stdin.on("end", resolve));
 
 const data = JSON.parse(text);
+console.log((await $`git remote get-url origin`).stdout);
 JSON.stringify(data, null, 2)
 	.split("\n")
 	.forEach((line) => console.log(line));
