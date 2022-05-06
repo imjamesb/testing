@@ -20,4 +20,4 @@ jobs:
         run: "npm i -g zx"
       - name: "Should release?"
         if: "github.ref == 'refs/heads/main'"
-        run: ".github/scripts/test"
+        run: ".github/scripts/test ${{ JSON.stringify(JSON.stringify(github.event.commits)) }}"
