@@ -4,3 +4,4 @@ console.log(process.stdin.read(1024));
 process.stdin.on("data", (data) => {
 	console.log(data);
 });
+process.stdin.on("end", () => console.log("done"));
