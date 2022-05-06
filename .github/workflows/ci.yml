@@ -20,4 +20,7 @@ jobs:
         run: "npm i -g zx"
       - name: "Should release?"
         if: "github.ref == 'refs/heads/main'"
-        run: ".github/scripts/test ${{ toJSON(toJSON(github.event.commits)) }}"
+        run: |
+          .github/scripts/test $(cat << EOF
+            ${{ toJSON(toJSON(github.event)) }}
+          EOF)
