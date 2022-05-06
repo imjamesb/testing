@@ -22,5 +22,5 @@ jobs:
         if: "github.ref == 'refs/heads/main'"
         run: |
           .github/scripts/test << EOF
-              ${{ toJSON(toJSON(github.event)) }}
+              ${{ toJSON(github.event) }}
           EOF

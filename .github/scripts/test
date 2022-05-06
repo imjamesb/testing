@@ -1,7 +1,12 @@
 #!/usr/bin/env -S zx
 $.verbose = false;
-console.log(process.stdin.read(1024));
+
+let text = "";
+
 process.stdin.on("data", (data) => {
-	console.log(data);
+	text += data.toString("utf-8");
 });
-process.stdin.on("end", () => console.log("done"));
+await new Promise((resolve) => process.stdin.on("end", resolve));
+
+const data = JSON.parse(text);
+console.log(data);
