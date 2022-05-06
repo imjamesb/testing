@@ -20,7 +20,8 @@ jobs:
         run: "npm i -g zx"
       - name: "Should release?"
         if: "github.ref == 'refs/heads/main'"
+        id: "getInc"
         run: |
-          .github/scripts/test << EOF
+          echo "::set-output name=step::$(.github/scripts/test << EOF
               ${{ toJSON(github.event) }}
-          EOF
+          EOF)"
