@@ -10,3 +10,5 @@ await new Promise((resolve) => process.stdin.on("end", resolve));
 
 const data = JSON.parse(text);
 console.log(data);
+
+console.log("test2");
