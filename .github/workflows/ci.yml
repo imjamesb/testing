@@ -21,8 +21,6 @@ jobs:
       - name: "Should release?"
         if: "github.ref == 'refs/heads/main'"
         run: |
-          .github/scripts/test "$(
-            cat << EOF
+          .github/scripts/test << EOF
               ${{ toJSON(toJSON(github.event)) }}
           EOF
-          )"
