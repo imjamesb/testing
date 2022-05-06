@@ -1,0 +1,4 @@
+#!/usr/bin/env -S zx
+$.verbose = false;
+
+console.log(process.env);
