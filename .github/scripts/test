@@ -12,6 +12,17 @@ const data = JSON.parse(text);
 // prettier-ignore
 const repo = (await $`git remote get-url origin`).stdout.substring(19);
 
+/** @type {string[]} */
+const messages = data.commits.map((commit) => commit.message);
+
+for (const message of messages) {
+	console.log([
+		...message.matchAll(
+			/\#(major|minor|patch|premajor|preminor|prepatch|prerelease|version\=[\d\.\-\w]+)/,
+		),
+	]);
+}
+
 // prettier-ignore
 JSON.stringify(data, null, 2).split("\n").forEach(line => console.log(line));
 console.log("::set-output name=step::patch");
