@@ -12,4 +12,4 @@ const data = JSON.parse(text);
 // prettier-ignore
 const repo = (await $`git remote get-url origin`).stdout.substring(19);
 
-process.stdout.write("patch");
+console.log("patch");
