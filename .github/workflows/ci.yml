@@ -30,8 +30,8 @@ jobs:
         run: |
           .github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}
           git add .
-          git config --global user.email "Github Actions Bot"
-          git config --global user.name "<>"
+          git config --global user.name "Github Actions Bot"
+          git config --global user.email "<>"
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
           #git remote remove origin
