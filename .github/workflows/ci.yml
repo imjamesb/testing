@@ -34,6 +34,8 @@ jobs:
           git config --global user.name "${{ github.event.head_commit.author.name }}"
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
+          git remote remove origin
+          git remote add origin git:${{ github.token }}@github.com:${{ github.repository }}
           git push -u origin ${{ steps.getInc.outputs.newVersion }}
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           cat ~/.npmrc
