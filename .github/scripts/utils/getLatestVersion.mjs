@@ -1,8 +1,10 @@
 // Imports
 import semver from "semver";
 
-export default async function getLatestVersion() {
-	const { stdout: tagsStr } = await nothrow($`git show-ref --tags`);
+export default async function getLatestVersion(origin) {
+	const { stdout: tagsStr } = await nothrow(
+		$`git ls-remote ${origin} --tags`,
+	);
 	if (!tagsStr) return null;
 	return semver
 		.sort(

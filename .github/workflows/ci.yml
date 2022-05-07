@@ -22,6 +22,7 @@ jobs:
         if: "github.ref == 'refs/heads/main'"
         id: "getInc"
         run: |
+          ORIGIN="https://x-access-token:${GTOKEN}@github.com/${{ github.repository }}"
           .github/scripts/newVersion << EOF
               ${{ toJSON(github.event) }}
           EOF
