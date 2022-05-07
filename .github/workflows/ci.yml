@@ -45,5 +45,5 @@ jobs:
         uses: "softprops/action-gh-release@v1"
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          draft: false
+          draft: true
           tag_name: "${{ steps.getInc.outputs.newVersion }}"
