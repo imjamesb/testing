@@ -18,7 +18,7 @@ const messages = data.commits.map((commit) => commit.message);
 for (const message of messages) {
 	console.log([
 		...message.matchAll(
-			/\#((major)|(minor)|(patch)|(premajor)|(preminor)|(prepatch)|(prerelease)|(version)\=([\d\.\-\w]+))/g,
+			/\#(major|minor|patch|premajor|preminor|prepatch|prerelease|version\=([\d\.\-\w]+))/g,
 		),
 	]);
 }
