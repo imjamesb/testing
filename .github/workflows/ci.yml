@@ -26,5 +26,5 @@ jobs:
               ${{ toJSON(github.event) }}
           EOF
       - name: "Show step"
-        if: "steps.getInc.step"
-        run: "echo ${{ steps.getInc.step }}"
+        if: "steps.getInc.outputs.step"
+        run: "echo ${{ steps.getInc.outputs.step }}"
