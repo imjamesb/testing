@@ -16,11 +16,18 @@ const repo = (await $`git remote get-url origin`).stdout.substring(19);
 const messages = data.commits.map((commit) => commit.message);
 
 for (const message of messages) {
-	console.log([
+	const tags = [
 		...message.matchAll(
 			/\#(major|minor|patch|premajor|preminor|prepatch|prerelease|(version)\=([\d\.\-\w]+))/g,
 		),
-	]);
+	].map(([, tag, versionTag, version]) => {
+		if (versionTag && version) {
+			return ["version", version];
+		} else {
+			return [tag];
+		}
+	});
+	console.log(tags);
 }
 
 // prettier-ignore
