@@ -11,7 +11,7 @@ export default async function getLatestVersion(origin) {
 			tagsStr
 				.trim()
 				.split(/[\r\n]+/g)
-				.map((str) => str.substring(48))
+				.map((str) => str.substring(41))
 				.filter((str) => str.substring(0, 10) === "refs/tags/")
 				.map((str) => str.substring(10))
 				.filter((str) => semver.valid(str) !== null)
