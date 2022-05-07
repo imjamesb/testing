@@ -22,10 +22,9 @@ jobs:
         if: "github.ref == 'refs/heads/main'"
         id: "getInc"
         run: |
-          echo "::set-output name=step::$(.github/scripts/test << EOF
+          .github/scripts/test << EOF
               ${{ toJSON(github.event) }}
           EOF
-          )"
       - name: "Show step"
         if: "steps.getInc.step"
         run: "echo ${{ steps.getInc.step }}"
