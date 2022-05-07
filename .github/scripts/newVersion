@@ -74,7 +74,9 @@ if (last[0] === "version") {
 } else {
 	const latest = await getLatestVersion();
 	if (!latest) {
-		console.log("::set-output name=newVersion::0.1.0");
+		if (last[0] === "major")
+			console.log("::set-output name=newVersion::1.0.0");
+		else console.log("::set-output name=newVersion::0.1.0");
 		process.exit(0);
 	}
 	const newVersion = inc(latest, last[0], {
