@@ -32,7 +32,7 @@ jobs:
           git add .
           git config --global user.name "x-access-token"
           git config --global user.email "x-access-token@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@users.noreply.github.com
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
           git push -u origin ${{ steps.getInc.outputs.newVersion }}
