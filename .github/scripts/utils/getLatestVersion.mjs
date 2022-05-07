@@ -2,9 +2,8 @@
 import semver from "semver";
 
 export default async function getLatestVersion(origin) {
-	const { stdout: tagsStr } = await nothrow(
-		$`git ls-remote -q --tags ${origin}`,
-	);
+	const { stdout: tagsStr } =
+		await $`git ls-remote -q --tags ${origin}`;
 	console.log(tagsStr);
 	if (!tagsStr) return null;
 	return semver
