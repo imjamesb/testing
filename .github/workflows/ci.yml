@@ -25,3 +25,6 @@ jobs:
           .github/scripts/test << EOF
               ${{ toJSON(github.event) }}
           EOF
+      - name: "Show version"
+        if: "steps.getInc.outputs.newVersion"
+        run: "echo ${{ steps.getInc.outputs.newVersion }}"

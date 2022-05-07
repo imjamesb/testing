@@ -1,6 +1,12 @@
 #!/usr/bin/env -S zx
 $.verbose = false;
 
+import getLatestVersion, {
+	inc,
+	parse,
+	valid,
+} from "./utils/getLatestVersion.mjs";
+
 let text = "";
 
 process.stdin.on("data", (data) => {
@@ -15,6 +21,18 @@ const repo = (await $`git remote get-url origin`).stdout.substring(19);
 /** @type {string[]} */
 const messages = data.commits.map((commit) => commit.message);
 
+const order = [
+	"major",
+	"minor",
+	"patch",
+	"premajor",
+	"preminor",
+	"prepatch",
+	"prerelease",
+];
+
+const last = ["none"];
+
 for (const message of messages) {
 	const tags = [
 		...message.matchAll(
@@ -27,9 +45,37 @@ for (const message of messages) {
 			return [tag];
 		}
 	});
-	console.log(tags);
+	if (tags.length > 1) {
+		console.error("More than one tag");
+		process.exit(1);
+	}
+	const [tag, version] = tags[0];
+	if (tag === "version") {
+		last[0] = tag;
+		last[1] = version;
+	} else {
+		const index1 = order.indexOf(last[0]);
+		const index2 = order.indexOf(tag);
+		last[1] = undefined;
+		if (index1 === -1) last[0] = tag;
+		else if (index2 < index1) last[0] = tag;
+		continue;
+	}
 }
 
 // prettier-ignore
 JSON.stringify(data, null, 2).split("\n").forEach(line => console.log(line));
-console.log("::set-output name=step::patch");
+console.log("::set-output name=step::" + last[0]);
+if (last[1]) console.log("::set-output name=version::" + last[1]);
+else console.log("::set-output name=version::none");
+
+if (last[0] === "version") {
+	console.log("::set-output name=newVersion::" + last[1]);
+} else {
+	const latest = await getLatestVersion();
+	const newVersion = inc(latest, last[0], {
+		includePrerelease: true,
+		loose: false,
+	});
+	console.log("::set-output name=newVersion::" + newVersion);
+}
