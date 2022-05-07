@@ -33,10 +33,9 @@ jobs:
           git config --global user.name "Github Actions Bot"
           git config --global user.email "<>"
           git remote remove origin
-          git remote add origin x-access-token:${{ github.token }}@github.com:${{ github.repository }}
+          git remote add origin git:${{ github.token }}@github.com:${{ github.repository }}
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
-          #git remote remove origin
           git push -u origin ${{ steps.getInc.outputs.newVersion }}
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           cat ~/.npmrc
