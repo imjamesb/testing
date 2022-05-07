@@ -25,6 +25,4 @@ jobs:
           .github/scripts/test << EOF
               ${{ toJSON(github.event) }}
           EOF
-      - name: "Show step"
-        if: "steps.getInc.outputs.step"
-        run: "echo ${{ steps.getInc.outputs.step }}"
+          echo "echo ${{ steps.getInc.outputs.step }}"
