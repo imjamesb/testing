@@ -25,19 +25,15 @@ jobs:
           .github/scripts/newVersion << EOF
               ${{ toJSON(github.event) }}
           EOF
-      - name: "Update package.json and changelog"
+      - name: "Update package.json and changelog & create and push tag"
         if: "steps.getInc.outputs.newVersion"
         run: |
           .github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}
-
           git add .
-
+          git config --global user.email "${{ github.event.head_commit.author.email }}"
+          git config --global user.name "${{ github.event.head_commit.author.name }}"
           git commit -m "chore(version): Updated package.json and moved changelog version."
-
           git tag "${{ steps.getInc.outputs.newVersion }}"
-
-          git push -u origin {main,${{ steps.getInc.outputs.newVersion }}}
-
+          git push -u origin ${{ steps.getInc.outputs.newVersion }}
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
           cat ~/.npmrc
