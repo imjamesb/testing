@@ -32,6 +32,8 @@ jobs:
           git add .
           git config --global user.name "Github Actions Bot"
           git config --global user.email "<>"
+          git remote remove origin
+          git remote add origin x-acces-token:${{ github.token }}@github.com:${{ github.repository }}
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
           #git remote remove origin
