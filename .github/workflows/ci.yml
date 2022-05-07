@@ -22,7 +22,7 @@ jobs:
         if: "github.ref == 'refs/heads/main'"
         id: "getInc"
         run: |
-          .github/scripts/test << EOF
+          .github/scripts/newVersion << EOF
               ${{ toJSON(github.event) }}
           EOF
       - name: "Show version"
