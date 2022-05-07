@@ -26,7 +26,7 @@ jobs:
               ${{ toJSON(github.event) }}
           EOF
           )
-          echo "::set-output name=step:$STEP"
+          echo "::set-output name=step::$STEP"
       - name: "Show step"
         if: "steps.getInc.step"
         run: "echo ${{ steps.getInc.step }}"
