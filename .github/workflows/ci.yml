@@ -38,8 +38,7 @@ jobs:
           git commit -m "chore(version): Updated package.json and moved changelog version."
           git tag "${{ steps.getInc.outputs.newVersion }}"
           git push -u origin ${{ steps.getInc.outputs.newVersion }}
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          cat ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
       - name: "Publish to NPM"
         run: "npm publish"
       - name: "Create release draft"
