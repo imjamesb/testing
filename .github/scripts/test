@@ -12,4 +12,6 @@ const data = JSON.parse(text);
 // prettier-ignore
 const repo = (await $`git remote get-url origin`).stdout.substring(19);
 
+// prettier-ignore
+JSON.stringify(data).split("\n").forEach(line => console.log(line));
 console.log("::set-output name=step::patch");

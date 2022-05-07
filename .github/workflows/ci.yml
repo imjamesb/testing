@@ -18,11 +18,10 @@ jobs:
         run: "npm run lint:check"
       - name: "Install zx globally"
         run: "npm i -g zx"
-      - name: "Should release?"
+      - name: "Set version"
         if: "github.ref == 'refs/heads/main'"
         id: "getInc"
         run: |
           .github/scripts/test << EOF
               ${{ toJSON(github.event) }}
           EOF
-          echo "echo ${{ steps.getInc.outputs.step }}"
