@@ -73,6 +73,10 @@ if (last[0] === "version") {
 	console.log("::set-output name=newVersion::" + last[1]);
 } else {
 	const latest = await getLatestVersion();
+	if (!latest) {
+		console.log("::set-output name=newVersion::0.1.0");
+		process.exit(0);
+	}
 	const newVersion = inc(latest, last[0], {
 		includePrerelease: true,
 		loose: false,
