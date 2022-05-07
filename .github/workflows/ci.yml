@@ -18,13 +18,26 @@ jobs:
         run: "npm run lint:check"
       - name: "Install zx globally"
         run: "npm i -g zx"
-      - name: "Set version"
+      - name: "Set new version"
         if: "github.ref == 'refs/heads/main'"
         id: "getInc"
         run: |
           .github/scripts/newVersion << EOF
               ${{ toJSON(github.event) }}
           EOF
-      - name: "Show version"
+      - name: "Update package.json and changelog"
         if: "steps.getInc.outputs.newVersion"
-        run: "echo ${{ steps.getInc.outputs.newVersion }}"
+        run: |
+          .github/scripts/updateVersions ${{ steps.getInc.outputs.newVersion }}
+
+          git add .
+
+          git commit -m "chore(version): Updated package.json and moved changelog version."
+
+          git tag "${{ steps.getInc.outputs.newVersion }}"
+
+          git push -u origin {main,${{ steps.getInc.outputs.newVersion }}}
+
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+          cat ~/.npmrc
